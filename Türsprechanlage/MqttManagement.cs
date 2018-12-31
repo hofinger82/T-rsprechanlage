@@ -42,7 +42,7 @@ namespace Türsprechanlage
                 ushort msgId = client.Subscribe(
                     subTopics,
                     new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
-                client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+                //client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
             }
             else
             {

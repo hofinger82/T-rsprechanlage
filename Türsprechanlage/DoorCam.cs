@@ -27,7 +27,8 @@ namespace Türsprechanlage
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
-            streamPlayerControl1.Stop();
+            if(streamPlayerControl1.IsPlaying)
+                streamPlayerControl1.Stop();
             this.Close();
         }
 

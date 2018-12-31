@@ -66,6 +66,7 @@
             this.buttonLeft.TabIndex = 1;
             this.buttonLeft.Text = "<";
             this.buttonLeft.UseVisualStyleBackColor = true;
+            this.buttonLeft.Click += new System.EventHandler(this.buttonLeft_Click);
             // 
             // buttonRight
             // 

@@ -19,6 +19,7 @@ public partial class Form1 : Form
             {"Licht", "Wohnzimmer Stehlampe", "Terasse", "Terasse Bodenleuchten", "", "", "mqtt"},
             {"Schildkröten", "UV-Licht", "Wärmelampe", "Frostwächter", "Heizmatte T&L", "mehr...", "mqtt"},
             {"Schildkröten 2", "Heizmatte Baby", "Tür vorne", "Tür mitte", "Tür hinten", "" , "mqtt"}
+           
         };
 
         static public string MenuMode = "Main";
@@ -39,7 +40,7 @@ public partial class Form1 : Form
 
             for (int i = 0; i < MenuModes.GetLength(0); i++)
             {
-                if (MenuModes[i, -1] == "mqtt")
+                if (MenuModes[i, MenuModes.GetLength(1) - 1] == "mqtt")
                 {
                     for (int j = 1; j < MenuModes.GetLength(1); j++)
                     {
@@ -61,15 +62,16 @@ public partial class Form1 : Form
                 {
                     labelPage.Text = MenuModes[i, 0];
                     button1.Text = MenuModes[i, 1];
-                    labelStatus1.Text = MQTTstatus[labelPage.Text + "/" + button1.Text];
+                    //labelStatus1.Text = MQTTstatus[labelPage.Text + "/" + button1.Text];
                     button2.Text = MenuModes[i, 2];
-                    labelStatus2.Text = MQTTstatus[labelPage.Text + "/"  + button2.Text];
+                    //labelStatus2.Text = MQTTstatus[labelPage.Text + "/"  + button2.Text];
                     button3.Text = MenuModes[i, 3];
-                    labelStatus3.Text = MQTTstatus[labelPage.Text + "/"  + button3.Text];
+                    //labelStatus3.Text = MQTTstatus[labelPage.Text + "/"  + button3.Text];
                     button4.Text = MenuModes[i, 4];
-                    labelStatus4.Text = MQTTstatus[labelPage.Text + "/"  + button4.Text];
+                    //labelStatus4.Text = MQTTstatus[labelPage.Text + "/"  + button4.Text];
                     button5.Text = MenuModes[i, 5];
-                    labelStatus5.Text = MQTTstatus[labelPage.Text + "/"  + button5.Text];
+                    //labelStatus5.Text = MQTTstatus[labelPage.Text + "/"  + button5.Text];
+
                 }
             }
             
@@ -86,7 +88,13 @@ public partial class Form1 : Form
 
         private void HandleButtonClick(string buttonText)
         {
-            for(int i = 0; i < MenuModes.GetLength(0); i++)
+            if (buttonText == "Tür")
+            {
+                Form DoorCam = new DoorCam();
+                DoorCam.ShowDialog();
+                return;
+            }
+            for (int i = 0; i < MenuModes.GetLength(0); i++)
             {
                 if(MenuModes[i,0] == buttonText) // wenn vorhanden, rufe ein untermenü auf
                 {
@@ -94,7 +102,9 @@ public partial class Form1 : Form
                     UpdateMenuItems();
                     return;
                 }
+
             }
+            
             string mqttTopic = "/" + MenuMode + "/" + buttonText;
             MqttManagement.PublishMqttMessage(mqttTopic, "TOGGLE"); //ansonsten mqtt publish
         }
@@ -127,6 +137,12 @@ public partial class Form1 : Form
             try { mode = status[MenuMode];
                     }
             catch (Exception) { MessageBox.Show("menumode not found: " + MenuMode); }
+        }
+
+        private void buttonLeft_Click(object sender, EventArgs e)
+        {
+            MenuMode = "Main";
+            UpdateMenuItems();
         }
     }
 }
