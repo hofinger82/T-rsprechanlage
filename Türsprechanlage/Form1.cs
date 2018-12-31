@@ -7,12 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Json;
 
 namespace Türsprechanlage
 {
 public partial class Form1 : Form
     {
+        
+        
+
         public string[,] MenuModes = new string[,] { 
             {"Main", "Licht", "Tür", "Kameras", "Schildis", "Einstellungen", "menu" },
             {"Sensoren", "Aussentemperatur", "Innentemperatur", "Temperatur Schildkrötenhaus", "Luftfeuchtigkeit aussen", "Wind", "mqtt"},
@@ -52,6 +55,7 @@ public partial class Form1 : Form
             subTopics = subTopicList.ToArray();
 
             MqttManagement.setSubTopics(subTopics);
+            
         }
 
         public void UpdateMenuItems()

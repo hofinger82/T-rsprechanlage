@@ -42,7 +42,7 @@ namespace Türsprechanlage
                 ushort msgId = client.Subscribe(
                     subTopics,
                     new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE, MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
-                //client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+                client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
             }
             else
             {
@@ -57,7 +57,7 @@ namespace Türsprechanlage
             return MqttStatusText;
         }
 
-        void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+        static void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             //Debug.WriteLine("Received = " + Encoding.UTF8.GetString(e.Message) + " on topic " + e.Topic);
             string strStatus;
