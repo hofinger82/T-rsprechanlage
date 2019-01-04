@@ -1,0 +1,23 @@
+{
+  "tempIn": {
+    "Name": "Innentemperatur",
+    "topic": "/temp/inhouse",
+    "unit": "°C"
+  },
+  "tempOut" : {
+    "Name": "Aussentemperatur",
+    "topic": "/temp/aussen",
+    "unit": "°C"
+  },
+  "humIn" : {
+    "Name": "Luftfeuchte innen",
+    "topic": "/hum/innen",
+    "unit": "%"
+  },
+  "humOut" : {
+    "Name": "Luftfeuchte aussen",
+    "topic": "/hum/aussen",
+    "unit": "%"
+  }
+
+}

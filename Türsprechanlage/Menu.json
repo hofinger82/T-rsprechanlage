@@ -1,35 +1,42 @@
-{"MenuMode" :
-{"pos" : 1, "Name" : "Main", "MenuItems" : ["Licht", "Tür", "Kameras", "Schildis", "Einstellungen"] },
-{"pos" : 2, "Name" : "Sensoren", "MenuItems" : ["Aussentemperatur" : , "Innentemperatur", "Temperatur Schildkrötenhaus", "Luftfeuchtigkeit aussen", "Wind"], "Type" : "sensor"},
-{"pos" : 3, "Name" : "Licht", "MenuItems" : ["Wohnzimmer Stehlampe", "Terasse", "Terasse Bodenleuchten"], "Type" : "mqtt"},
-{"pos" : 4, "Name" : "Schildkröten", "MenuItems" : ["UV-Licht", "Wärmelampe", "Frostwächter", "Heizmatte T&L", "Heizmatte Baby", "Tür vorne", "Tür mitte", "Tür hinten"] "Type" : "mqtt"}
-{"pos" : 5, "Name" : "Tür", "Type" : "Form"},
-{"pos" : 6, "Name" : "Kameras", "Type" : "Form"},
-}
-			
-			
-{"Sensor" : 
-{ "Name" : "Innentemperatur", "topic" : "/temp/inhouse", "unit" : "°C"},
-{ "Name" : "Aussentemperatur", "topic" : "/temp/aussen", "unit" : "°C"},
-{ "Name" : "Luftfeuchte innen", "topic" : "/hum/innen", "unit" : "%"},
-{ "Name" : "Luftfeuchte aussen", "topic" : "/hum/aussen", "unit" : "%"} 
+{
+  "MenuItem": [
+    {
+    "pos" : 1,
+    "Name" : "Main",
+    "MenuItems" : [ "Licht", "Tür", "Kameras", "Schildis", "Einstellungen" ]
+    },
+ {
+      "pos": 2,
+      "Name": "Sensoren",
+      "MenuItems": [ "Aussentemperatur", "Innentemperatur", "Temperatur Schildkrötenhaus", "Luftfeuchtigkeit aussen", "Wind" ],
+      "Type": "sensor"
+    },
+  {
+      "pos": 3,
+      "Name": "Licht",
+      "MenuItems": [ "Wohnzimmer Stehlampe", "Terasse", "Terasse Bodenleuchten" ],
+      "Type": "switch"
+    },
+  {
+      "pos": 4,
+      "Name": "Schildis",
+      "MenuItems": [ "UV-Licht", "Wärmelampe", "Frostwächter", "Heizmatte T&L", "Heizmatte Baby", "Tür vorne", "Tür mitte", "Tür hinten" ],
+      "Type": "switch"
+    },
+ {
+      "pos": 5,
+      "Name": "Tür",
+      "Type": "Form"
+    },
+    {
+      "pos": 6,
+      "Name": "Kameras",
+      "Type": "Form"
+    }
+    ]
+  }
 
-}
 
-{"Switch" :
-	{"Schildkroeten" :  {"Name" : "UV-Licht", "Topic" : "cmnd/kroeten/k1", "statTopic" : "stat/kroeten/k1"},
-						{"Name" : "Wärmelampe", "Topic" : "cmnd/kroeten/k2", "statTopic" : "stat/kroeten/k2"},
-						{"Name" : "Frostwächter", "Topic" : "cmnd/kroeten/k3-1", "statTopic" : "stat/kroeten/k3-1"},
-						{"Name" : "Heizmatte T&L", "Topic" : "cmnd/kroeten/k3-2", "statTopic" : "stat/kroeten/k3-2"},
-						{"Name" : "Heizmatte Baby", "Topic" : "cmnd/kroeten/k3-3", "statTopic" : "stat/kroeten/k3-3"},
-						{"Name" : "Tür vorne", "Topic" : "cmnd/kroeten/tuerV", "statTopic" : "stat/kroeten/tuerV"},
-						{"Name" : "Tür mitte", "Topic" : "cmnd/kroeten/tuerM", "statTopic" : "stat/kroeten/tuerM"},
-						{"Name" : "Tür hinten", "Topic" : "cmnd/kroeten/tuerH", "statTopic" : "stat/kroeten/tuerH"}
-						}
-	
-	{"Licht" : 	{"Name" : "Wohnzimmer Stehlampe", "Topic" : "cmnd/terasse/POWER3", "statTopic" : "stat/terasse/POWER3"},
-				{"Name" : "Terasse",  "Topic" : "cmnd/terasse/POWER1", "statTopic" : "stat/terasse/POWER1"},
-				{"Name" : "Terasse Bodenleuchten" "Topic" : "cmnd/terasse/POWER2", "statTopic" : "stat/terasse/POWER2"}
-				}
+ 
 
-}
+ 

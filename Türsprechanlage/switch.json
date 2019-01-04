@@ -1,0 +1,65 @@
+﻿{ "switch" :
+{
+  "turtle": {
+    "UV-Licht": {
+      "Name": "UV-Licht",
+      "statTopic": "stat/kroeten/k1",
+      "Topic": "cmnd/kroeten/k1"
+    },
+    "Waermelampe": {
+      "Name": "Wärmelampe",
+      "Topic": "cmnd/kroeten/k2",
+      "statTopic": "stat/kroeten/k2"
+    },
+    "Frostwaechter": {
+      "Name": "Frostwächter",
+      "Topic": "cmnd/kroeten/k3-1",
+      "statTopic": "stat/kroeten/k3-1"
+    },
+    "HeizmatteTL": {
+      "Name": "Heizmatte T&L",
+      "Topic": "cmnd/kroeten/k3-2",
+      "statTopic": "stat/kroeten/k3-2"
+    },
+    "HeizmatteBaby": {
+      "Name": "Heizmatte Baby",
+      "Topic": "cmnd/kroeten/k3-3",
+      "statTopic": "stat/kroeten/k3-3"
+    },
+    "TuerVorne": {
+      "Name": "Tür vorne",
+      "Topic": "cmnd/kroeten/tuerV",
+      "statTopic": "stat/kroeten/tuerV"
+    },
+    "TuerMitte": {
+      "Name": "Tür mitte",
+      "Topic": "cmnd/kroeten/tuerM",
+      "statTopic": "stat/kroeten/tuerM"
+    },
+    "TuerHinten": {
+      "Name": "Tür hinten",
+      "Topic": "cmnd/kroeten/tuerH",
+      "statTopic": "stat/kroeten/tuerH"
+    }
+  }
+},
+
+  "light" : {
+    "WohnzimmerStehlampe": {
+      "Name": "Wohnzimmer Stehlampe",
+      "Topic": "cmnd/terasse/POWER3",
+      "statTopic": "stat/terasse/POWER3"
+    },
+   "Terasse" : {
+      "Name": "Terasse",
+      "Topic": "cmnd/terasse/POWER1",
+      "statTopic": "stat/terasse/POWER1"
+    },
+   "terasseBoden" :  {
+      "Name": "Terasse Bodenleuchten",
+      "Topic": "cmnd/terasse/POWER2",
+      "statTopic": "stat/terasse/POWER2"
+    }
+  }
+
+}

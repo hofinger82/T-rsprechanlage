@@ -7,14 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Json;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Türsprechanlage
 {
 public partial class Form1 : Form
     {
-        
-        
+        public static string MenuFilePath = "%home%/SweetHomeCP/Menu.json";
+        public static string SensorFilePath = "%home%/SweetHomeCP/sensor.json";
+        public static string SwitchFilePath = "%home%/SweetHomeCP/switch.json";
 
         public string[,] MenuModes = new string[,] { 
             {"Main", "Licht", "Tür", "Kameras", "Schildis", "Einstellungen", "menu" },
@@ -26,18 +28,43 @@ public partial class Form1 : Form
         };
 
         static public string MenuMode = "Main";
-
+        int MenuPos = 0;
         
         
 
         public string[] subTopics;
 
         public Dictionary<string,string> MQTTstatus = new Dictionary<string,string>();
-        
+        public Dictionary<string, string> MenuDict = new Dictionary<string, string>();
+        public Dictionary<string, string> SensorDict = new Dictionary<string, string>();
+        public Dictionary<string, string> SwitchDict = new Dictionary<string, string>();
+
+        public class MenuType
+        {
+            public string Name { get; set; }
+            public int pos { get; set; }
+            public string[] MenuItems { get; set; }
+        }
+
+        public DataSet MenuDataSet;
+        public DataTable MenuDataTable;
 
         public Form1()
         {
             InitializeComponent();
+
+            string jsonText = File.ReadAllText(MenuFilePath); //////////////// read menuitems from file and deserialize
+            //MenuDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonText);
+            //men = JsonConvert.DeserializeObject<MenuType>(jsonText);
+            MenuDataSet = JsonConvert.DeserializeObject<DataSet>(jsonText);
+            MenuDataTable = MenuDataSet.Tables["MenuItem"];
+
+            jsonText = File.ReadAllText(SensorFilePath); //////////////// read sensors from file and deserialize into dictionary
+            SensorDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonText);
+
+            jsonText = File.ReadAllText(SwitchFilePath); //////////////// read switches from file and deserialize into dictionary
+            SwitchDict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonText);
+
             UpdateMenuItems();
             List<string> subTopicList = new List<string>();
 
@@ -60,24 +87,43 @@ public partial class Form1 : Form
 
         public void UpdateMenuItems()
         {
-            for(int i = 0; i < MenuModes.GetLength(0); i++)
+            if (!MenuDict.ContainsKey(MenuMode))
+                return;
+
+            labelPage.Text = MenuMode;
+
+           
+
+           // if(MenuDataTable.Rows.Count )
+
+
+            foreach(DataRow row in MenuDataTable.Rows)
             {
-                if(MenuModes[i,0] == MenuMode)
+                if(row["Name"] == MenuMode)
                 {
-                    labelPage.Text = MenuModes[i, 0];
-                    button1.Text = MenuModes[i, 1];
-                    //labelStatus1.Text = MQTTstatus[labelPage.Text + "/" + button1.Text];
-                    button2.Text = MenuModes[i, 2];
-                    //labelStatus2.Text = MQTTstatus[labelPage.Text + "/"  + button2.Text];
-                    button3.Text = MenuModes[i, 3];
-                    //labelStatus3.Text = MQTTstatus[labelPage.Text + "/"  + button3.Text];
-                    button4.Text = MenuModes[i, 4];
-                    //labelStatus4.Text = MQTTstatus[labelPage.Text + "/"  + button4.Text];
-                    button5.Text = MenuModes[i, 5];
-                    //labelStatus5.Text = MQTTstatus[labelPage.Text + "/"  + button5.Text];
+                    
+                    button1.Text = row["MenuItems"].ToString();
 
                 }
             }
+            //for(int i = 0; i < MenuModes.GetLength(0); i++)
+            //{
+            //    if(MenuModes[i,0] == MenuMode)
+            //    {
+            //        labelPage.Text = MenuModes[i, 0];
+            //        button1.Text = MenuModes[i, 1];
+            //        //labelStatus1.Text = MQTTstatus[labelPage.Text + "/" + button1.Text];
+            //        button2.Text = MenuModes[i, 2];
+            //        //labelStatus2.Text = MQTTstatus[labelPage.Text + "/"  + button2.Text];
+            //        button3.Text = MenuModes[i, 3];
+            //        //labelStatus3.Text = MQTTstatus[labelPage.Text + "/"  + button3.Text];
+            //        button4.Text = MenuModes[i, 4];
+            //        //labelStatus4.Text = MQTTstatus[labelPage.Text + "/"  + button4.Text];
+            //        button5.Text = MenuModes[i, 5];
+            //        //labelStatus5.Text = MQTTstatus[labelPage.Text + "/"  + button5.Text];
+
+            //    }
+            //}
             
         }
 
@@ -98,16 +144,16 @@ public partial class Form1 : Form
                 DoorCam.ShowDialog();
                 return;
             }
-            for (int i = 0; i < MenuModes.GetLength(0); i++)
-            {
-                if(MenuModes[i,0] == buttonText) // wenn vorhanden, rufe ein untermenü auf
+            
+            
+                if(MenuDict.ContainsKey(buttonText)) // wenn vorhanden, rufe ein untermenü auf
                 {
                     MenuMode = buttonText;
                     UpdateMenuItems();
                     return;
                 }
 
-            }
+            
             
             string mqttTopic = "/" + MenuMode + "/" + buttonText;
             MqttManagement.PublishMqttMessage(mqttTopic, "TOGGLE"); //ansonsten mqtt publish
